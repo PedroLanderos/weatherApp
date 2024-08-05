@@ -1,25 +1,23 @@
+using Microsoft.AspNetCore.Mvc;
+
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+app.MapGet("/route/{zip}", (string zip, [FromQuery] int? days) =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
+    return Results.Ok(zip);
+});
 
 app.Run();
+
+//how to map an application instance
+
+/*var builder = WebApplication.CreateBuilder(args);
+var app = builder.Build();
+
+app.MapGet("/route/{value}", (string value) =>
+{
+    return Results.Ok(value);
+});
+
+app.Run();*/
